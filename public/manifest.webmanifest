@@ -1,0 +1,17 @@
+{
+  "name": "不高山上 Bugaoshan",
+  "short_name": "不高山上",
+  "description": "川大学生专属校园助手",
+  "start_url": "/bugaoshan-web/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#991f20",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

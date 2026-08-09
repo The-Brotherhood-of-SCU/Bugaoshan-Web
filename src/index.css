@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+/* 深色模式：跟随系统 prefers-color-scheme（Tailwind v4 默认 dark: 即媒体查询）。
+   各组件已补齐 dark: 变体；品牌深红区块在两种主题下均保留红色。 */
+@theme {
+  --color-scu: #991f20; /* 主品牌红 */
+  --color-scu-dark: #590d0f; /* 深红 */
+  --color-scu-accent: #ed1c24; /* 亮红强调 */
+  --color-scu-gray: #666666;
+  --color-scu-gray2: #767272;
+
+  --font-sans: "Noto Sans SC", system-ui, -apple-system, "PingFang SC",
+    "Microsoft YaHei", "Segoe UI", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-white text-scu-gray font-sans antialiased dark:bg-neutral-950 dark:text-neutral-200;
+}
+
+/* 锚点滚动时避开 sticky 导航 */
+section[id] {
+  scroll-margin-top: 4.5rem;
+}
+
+/* 尊重用户的减少动效偏好 */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
