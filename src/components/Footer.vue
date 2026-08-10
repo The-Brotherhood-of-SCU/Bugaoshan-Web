@@ -1,27 +1,24 @@
 <script setup lang="ts">
 import { SITE } from '../data/site'
-import { asset } from '../lib/asset'
 import Icon from './ui/Icon.vue'
 </script>
 
 <template>
-  <footer class="border-t border-black/5 bg-scu-dark text-white">
-    <div class="mx-auto flex max-w-6xl flex-col gap-8 px-6 py-12 sm:flex-row sm:items-center sm:justify-between">
-      <div class="flex items-center gap-3">
-        <img :src="asset('brotherhood-of-scu.png')" alt="" class="h-10 w-10 rounded-lg" />
-        <div>
-          <p class="font-semibold">{{ SITE.org }}</p>
-          <p class="text-sm text-gray-300">© 2026 {{ SITE.name }} {{ SITE.nameEn }}</p>
+  <footer id="disclaimer" class="section-dark border-t border-[#625b53]">
+    <div class="mx-auto grid max-w-7xl gap-7 px-5 py-9 sm:px-8 md:grid-cols-12 md:items-center">
+      <div class="md:col-span-8">
+        <p class="display-serif text-xl text-[#eee7dc]">{{ SITE.name }}</p>
+        <p class="editorial-label mt-2 text-[#938a81]">© 2026 {{ SITE.org }}</p>
+        <div class="mt-5 max-w-2xl">
+          <p class="text-sm font-semibold leading-6 text-[#eee7dc]">非官方第三方应用，与四川大学不存在隶属、授权或认可关系。</p>
         </div>
       </div>
-      <nav class="flex flex-wrap gap-x-6 gap-y-2 text-sm">
-        <a :href="SITE.repo" target="_blank" rel="noopener noreferrer" class="text-gray-200 transition-colors hover:text-white">
-          <span class="inline-flex items-center gap-1"><Icon name="github" :size="16" /> 仓库</span>
-        </a>
-        <a :href="SITE.licenseUrl" target="_blank" rel="noopener noreferrer" class="text-gray-200 transition-colors hover:text-white">许可证 {{ SITE.license }}</a>
-        <a :href="SITE.contributing" target="_blank" rel="noopener noreferrer" class="text-gray-200 transition-colors hover:text-white">贡献指南</a>
+
+      <nav class="flex flex-wrap gap-6 text-sm md:col-span-4 md:justify-end" aria-label="页脚导航">
+        <a :href="SITE.repo" target="_blank" rel="noopener noreferrer" class="focus-editorial inline-flex items-center gap-2 font-semibold text-[#c9c0b6] hover:text-white"><Icon name="github" :size="16" /> 仓库</a>
+        <a :href="SITE.licenseUrl" target="_blank" rel="noopener noreferrer" class="focus-editorial font-semibold text-[#c9c0b6] hover:text-white">{{ SITE.license }}</a>
+        <a :href="SITE.contributing" target="_blank" rel="noopener noreferrer" class="focus-editorial font-semibold text-[#c9c0b6] hover:text-white">贡献</a>
       </nav>
     </div>
-    <div class="border-t border-white/10 px-6 py-4 text-center text-xs text-gray-400">非官方第三方应用，与四川大学不存在隶属、授权或认可关系。</div>
   </footer>
 </template>

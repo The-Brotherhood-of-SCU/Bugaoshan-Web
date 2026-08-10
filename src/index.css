@@ -1,40 +1,289 @@
 @import "tailwindcss";
 
-/* 深色模式：跟随系统 prefers-color-scheme（Tailwind v4 默认 dark: 即媒体查询）。
-   各组件已补齐 dark: 变体；品牌深红区块在两种主题下均保留红色。 */
 @theme {
-  --color-scu: #991f20; /* 主品牌红 */
-  --color-scu-dark: #590d0f; /* 深红 */
-  --color-scu-accent: #ed1c24; /* 亮红强调 */
-  --color-scu-gray: #666666;
-  --color-scu-gray2: #767272;
+  --color-scu: #8b3436;
+  --color-scu-dark: #57262a;
+  --color-scu-accent: #b95b4f;
+  --color-scu-gray: #6b625a;
+  --color-scu-gray2: #8b8177;
 
   --font-sans: "Noto Sans SC", system-ui, -apple-system, "PingFang SC",
     "Microsoft YaHei", "Segoe UI", sans-serif;
 }
 
+:root {
+  color-scheme: light;
+  --paper: #f2eee6;
+  --paper-raised: #faf7f1;
+  --paper-deep: #e8e0d4;
+  --ink: #2f2a26;
+  --muted: #6b625a;
+  --faint: #8b8177;
+  --line: #b9afa2;
+  --line-strong: #81776e;
+  --wine: #8b3436;
+  --wine-deep: #57262a;
+  --brick: #b95b4f;
+  --stone: #d8d0c4;
+  --shadow: rgb(47 42 38 / 14%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --paper: #1d1b19;
+    --paper-raised: #282522;
+    --paper-deep: #34302c;
+    --ink: #e4ded4;
+    --muted: #b7aea3;
+    --faint: #938a81;
+    --line: #625b53;
+    --line-strong: #8d847a;
+    --wine: #bc5b5d;
+    --wine-deep: #6f3438;
+    --brick: #cf7468;
+    --stone: #3b3733;
+    --shadow: rgb(0 0 0 / 28%);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
 html {
   scroll-behavior: smooth;
+  background: var(--paper);
 }
 
 body {
-  @apply bg-white text-scu-gray font-sans antialiased dark:bg-neutral-950 dark:text-neutral-200;
+  min-width: 320px;
+  margin: 0;
+  overflow-x: hidden;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* 锚点滚动时避开 sticky 导航 */
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: var(--wine);
+  color: #fffaf2;
+}
+
 section[id] {
   scroll-margin-top: 4.5rem;
 }
 
-/* 尊重用户的减少动效偏好 */
+.display-serif {
+  font-family: "Songti SC", "STSong", "Noto Serif CJK SC", "Source Han Serif SC",
+    Georgia, serif;
+  font-weight: 700;
+  letter-spacing: -0.055em;
+}
+
+.editorial-label {
+  font-family: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.focus-editorial:focus-visible {
+  outline: 2px solid var(--brick);
+  outline-offset: 4px;
+}
+
+.page-grid {
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(90deg, transparent calc(100% - 1px), color-mix(in srgb, var(--ink) 4%, transparent) 1px),
+    linear-gradient(color-mix(in srgb, var(--ink) 3%, transparent) 1px, transparent 1px);
+  background-size: min(12vw, 9rem) 100%, 100% 48px;
+}
+
+.section-surface {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.section-tint {
+  background: var(--paper-deep);
+  color: var(--ink);
+}
+
+.section-dark {
+  --paper: #eee7dc;
+  --ink: #312b27;
+  --muted: #756b62;
+  --line: #8c8177;
+  background: #312b27;
+  color: #eee7dc;
+}
+
+.editorial-card {
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--paper-raised) 94%, transparent);
+  box-shadow: 0 16px 36px -28px var(--shadow);
+}
+
+.editorial-card-interactive {
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.editorial-card-interactive:hover {
+  border-color: var(--line-strong);
+  box-shadow: 0 20px 42px -26px var(--shadow);
+  transform: translateY(-3px);
+}
+
+.hero-field {
+  position: relative;
+  isolation: isolate;
+}
+
+.hero-field::before {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--wine) 5%, transparent), transparent 42%),
+    repeating-linear-gradient(0deg, transparent 0 47px, color-mix(in srgb, var(--ink) 4%, transparent) 47px 48px);
+  content: "";
+}
+
+.hero-art {
+  position: relative;
+  min-height: 32rem;
+}
+
+.hero-logo-svg {
+  position: absolute;
+  inset: 0 0 1.5rem;
+  width: 100%;
+  height: calc(100% - 1.5rem);
+  object-fit: contain;
+  filter: drop-shadow(0 20px 24px var(--shadow));
+}
+
+.download-ticket {
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-index {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+}
+
+.feature-entry {
+  display: grid;
+  grid-template-columns: 4.25rem 1fr auto;
+  gap: 1.25rem;
+  align-items: start;
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.feature-entry:nth-child(odd) {
+  padding-right: 2.25rem;
+  border-right: 1px solid var(--line);
+}
+
+.feature-entry:nth-child(even) {
+  padding-left: 2.25rem;
+}
+
+.shot-frame {
+  position: relative;
+  border: 1px solid var(--line);
+  background: var(--paper-raised);
+  padding: 0.65rem;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.shot-frame:hover {
+  z-index: 2;
+  box-shadow: 0 24px 50px -28px var(--shadow);
+  transform: translateY(-5px) rotate(0deg);
+}
+
+.shot-frame:nth-child(1) {
+  transform: rotate(-1.5deg);
+}
+
+.shot-frame:nth-child(2) {
+  margin-top: 2.75rem;
+}
+
+.shot-frame:nth-child(3) {
+  transform: rotate(1.5deg);
+}
+
+.manifesto-panel {
+  position: relative;
+  overflow: hidden;
+  background: var(--wine-deep);
+  color: #f6eee5;
+}
+
+.manifesto-panel::after {
+  position: absolute;
+  right: -10%;
+  bottom: -40%;
+  width: 65%;
+  height: 85%;
+  border: 1px solid rgb(255 255 255 / 24%);
+  border-radius: 50%;
+  content: "";
+}
+
+@media (max-width: 767px) {
+  .hero-art {
+    min-height: 25rem;
+  }
+
+  .feature-index {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-entry,
+  .feature-entry:nth-child(odd),
+  .feature-entry:nth-child(even) {
+    grid-template-columns: 3.25rem 1fr auto;
+    padding: 1.5rem 0;
+    border-right: 0;
+  }
+
+  .shot-frame:nth-child(1),
+  .shot-frame:nth-child(2),
+  .shot-frame:nth-child(3) {
+    margin-top: 0;
+    transform: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
+
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

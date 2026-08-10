@@ -6,23 +6,34 @@ import Icon from './ui/Icon.vue'
 </script>
 
 <template>
-  <section id="top" class="relative flex min-h-[70vh] items-center justify-center overflow-hidden bg-gradient-to-br from-scu-dark via-scu to-scu-accent py-16 sm:py-20">
-    <div class="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-white/10 blur-3xl" />
-    <div class="pointer-events-none absolute -bottom-32 -left-20 h-80 w-80 rounded-full bg-white/10 blur-3xl" />
-    <div class="relative mx-auto max-w-3xl px-6 text-center">
-      <img :src="asset('favicon.svg')" alt="不高山上 Logo" class="mx-auto mb-5 h-16 w-16 rounded-2xl shadow-lg sm:h-20 sm:w-20" />
-      <h1 class="text-4xl font-bold text-white drop-shadow-sm sm:text-5xl">{{ SITE.name }}</h1>
-      <p class="mt-2 text-lg font-medium tracking-wide text-white/90">{{ SITE.nameEn }}</p>
-      <p class="mt-3 text-base text-white/80 sm:text-lg">{{ SITE.tagline }}</p>
-      <div class="mt-7 flex flex-wrap items-center justify-center gap-4">
-        <Button href="#downloads" variant="light">
-          <Icon name="arrowDown" :size="18" /> 立即下载
-        </Button>
-        <Button :href="SITE.repo" variant="outline" external>
-          <Icon name="github" :size="18" /> GitHub
-        </Button>
+  <section id="top" class="hero-field overflow-hidden border-b border-[var(--line)]">
+    <div class="mx-auto grid min-h-[calc(72svh-4.5rem)] max-w-7xl items-center gap-8 px-5 py-14 sm:px-8 lg:min-h-[calc(88svh-4.5rem)] lg:grid-cols-12 lg:py-16">
+      <div class="relative z-10 lg:col-span-7">
+        <div class="mb-8 flex items-center gap-4">
+          <span class="editorial-label border-y border-[var(--wine)] py-2 text-[var(--wine)]">SCU / Student Utility</span>
+          <span class="h-px flex-1 bg-[var(--line)]"></span>
+        </div>
+
+        <h1 class="display-serif max-w-[9ch] text-[clamp(4.5rem,12vw,9rem)] leading-[0.84] text-[var(--ink)]">
+          不高<span class="text-[var(--wine)]">山上</span>
+        </h1>
+        <p class="mt-4 font-serif text-xl tracking-[0.12em] text-[var(--muted)] sm:text-2xl">{{ SITE.nameEn }} · {{ SITE.tagline }}</p>
+        <p class="mt-7 max-w-xl text-base leading-7 text-[var(--muted)] sm:text-lg">课表、成绩与校园服务，一处抵达。</p>
+
+        <div class="mt-7 flex flex-wrap gap-3">
+          <Button href="#downloads" variant="primary">
+            <Icon name="arrowDown" :size="18" /> 下载应用
+          </Button>
+          <Button :href="SITE.repo" variant="secondary" external>
+            <Icon name="github" :size="18" /> 浏览源码
+          </Button>
+        </div>
       </div>
-      <p class="mt-6 text-sm text-white/60">开源 {{ SITE.license }} · Flutter 跨平台</p>
+
+      <div class="hero-art hidden lg:col-span-5 lg:block" aria-hidden="true">
+        <img :src="asset('favicon.svg')" alt="" class="hero-logo-svg" />
+        <p class="editorial-label absolute bottom-0 left-0 z-10 text-[var(--muted)]">31.5° N / 104.0° E<br />Campus notes, rebuilt.</p>
+      </div>
     </div>
   </section>
 </template>

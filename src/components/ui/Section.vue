@@ -14,30 +14,28 @@ const props = withDefaults(
   { className: '', dark: false, tint: false },
 )
 
-const bg = computed(() =>
-  props.dark
-    ? 'bg-scu-dark text-white'
-    : props.tint
-      ? 'bg-scu/5 text-scu-gray dark:bg-scu/10 dark:text-neutral-300'
-      : 'bg-white text-scu-gray dark:bg-neutral-950 dark:text-neutral-300',
+const surface = computed(() =>
+  props.dark ? 'section-dark' : props.tint ? 'section-tint' : 'section-surface',
 )
 </script>
 
 <template>
-  <section :id="id" :aria-labelledby="`${id}-title`" :class="`py-20 sm:py-24 ${bg} ${className}`">
-    <div class="mx-auto max-w-6xl px-6">
-      <div class="mx-auto max-w-2xl text-center">
-        <p
-          v-if="eyebrow"
-          :class="`mb-3 text-sm font-semibold tracking-widest uppercase ${dark ? 'text-scu-accent' : 'text-scu dark:text-scu-accent'}`"
-        >{{ eyebrow }}</p>
-        <h2
-          :id="`${id}-title`"
-          :class="`text-3xl font-bold sm:text-4xl ${dark ? 'text-white' : 'text-scu-dark dark:text-white'}`"
-        >{{ title }}</h2>
-        <p v-if="description" class="mt-4 text-base leading-relaxed sm:text-lg">{{ description }}</p>
-      </div>
-      <div class="mt-14"><slot /></div>
+  <section :id="id" :aria-labelledby="`${id}-title`" :class="`relative py-20 sm:py-28 ${surface} ${className}`">
+    <div class="mx-auto max-w-7xl px-5 sm:px-8">
+      <header class="grid gap-6 border-t border-[var(--line)] pt-5 md:grid-cols-12 md:items-start">
+        <p v-if="eyebrow" class="editorial-label text-[var(--wine)] md:col-span-3">
+          {{ eyebrow }}
+        </p>
+        <div class="md:col-span-5">
+          <h2 :id="`${id}-title`" class="display-serif text-4xl leading-[1.05] text-current sm:text-5xl">
+            {{ title }}
+          </h2>
+        </div>
+        <p v-if="description" class="max-w-[42rem] text-base leading-7 text-[var(--muted)] md:col-span-4">
+          {{ description }}
+        </p>
+      </header>
+      <div class="mt-12 sm:mt-16"><slot /></div>
     </div>
   </section>
 </template>

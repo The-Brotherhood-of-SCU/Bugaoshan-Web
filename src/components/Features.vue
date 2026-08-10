@@ -5,19 +5,18 @@ import Icon from './ui/Icon.vue'
 </script>
 
 <template>
-  <Section id="features" eyebrow="Features" title="核心特性" description="一站式聚合川大校园服务，把分散在各个系统的功能收进一个 App。">
-    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-      <div
-        v-for="f in features"
-        :key="f.id"
-        class="rounded-2xl border border-black/5 bg-white p-6 shadow-sm transition-shadow hover:shadow-md dark:border-white/10 dark:bg-neutral-900"
-      >
-        <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-scu/10 text-scu">
-          <Icon :name="f.icon" :size="24" />
+  <Section id="features" eyebrow="02 / Field Index" title="校园生活，重新编目" description="四类常用服务，清晰集中。" tint>
+    <div class="feature-index">
+      <article v-for="(feature, index) in features" :key="feature.id" class="feature-entry">
+        <span class="display-serif text-3xl leading-none text-[var(--wine)]">{{ String(index + 1).padStart(2, '0') }}</span>
+        <div>
+          <h3 class="text-lg font-bold text-[var(--ink)] sm:text-xl">{{ feature.title }}</h3>
+          <p class="mt-2 max-w-md text-sm leading-6 text-[var(--muted)]">{{ feature.desc }}</p>
         </div>
-        <h3 class="mb-2 text-lg font-semibold text-scu-dark dark:text-white">{{ f.title }}</h3>
-        <p class="text-sm leading-relaxed text-scu-gray dark:text-neutral-400">{{ f.desc }}</p>
-      </div>
+        <span class="grid h-10 w-10 place-items-center border border-[var(--line)] text-[var(--wine)]" aria-hidden="true">
+          <Icon :name="feature.icon" :size="19" />
+        </span>
+      </article>
     </div>
   </Section>
 </template>
