@@ -5,7 +5,6 @@ import Downloads from './components/Downloads.vue'
 import Features from './components/Features.vue'
 import Screenshots from './components/Screenshots.vue'
 import OpenSource from './components/OpenSource.vue'
-import Disclaimer from './components/Disclaimer.vue'
 import Footer from './components/Footer.vue'
 </script>
 
@@ -17,7 +16,6 @@ import Footer from './components/Footer.vue'
     <Features />
     <Screenshots />
     <OpenSource />
-    <Disclaimer />
   </main>
   <Footer />
 </template>

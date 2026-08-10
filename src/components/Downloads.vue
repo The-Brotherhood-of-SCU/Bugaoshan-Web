@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { downloads } from '../data/downloads'
-import { SITE } from '../data/site'
 import { useCopyFeedback } from '../composables/useCopyFeedback'
 import Section from './ui/Section.vue'
 import Badge from './ui/Badge.vue'
@@ -10,51 +9,59 @@ const { copiedText: copiedNumber, copyText: copyNumber } = useCopyFeedback()
 </script>
 
 <template>
-  <Section id="downloads" eyebrow="Download" title="多平台下载" description="已发布平台前往 GitHub Releases，其他平台请加群了解。">
-    <div class="mx-auto grid max-w-3xl grid-cols-1 gap-6 sm:grid-cols-2">
-      <template v-for="p in downloads" :key="p.name">
-        <div
-          v-if="p.status === 'group'"
-          class="flex flex-col gap-4 rounded-2xl border border-black/5 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-neutral-900"
-        >
-          <div class="flex items-center justify-between">
-            <h3 class="text-xl font-semibold text-scu-dark dark:text-white">{{ p.name }}</h3>
-            <Badge :status="p.status" />
+  <Section id="downloads" eyebrow="01 / Download" title="从这里出发" description="下载公开版本，或加入内测交流群。">
+    <div class="grid gap-5 lg:grid-cols-2">
+      <template v-for="(platform, index) in downloads" :key="platform.name">
+        <article v-if="platform.status === 'group'" class="download-ticket editorial-card min-h-72 p-6 sm:p-8">
+          <div class="relative z-10 flex h-full flex-col">
+            <div class="flex items-start justify-between gap-4 border-b border-dashed border-[var(--line)] pb-6">
+              <div>
+                <p class="editorial-label text-[var(--faint)]">Ticket / 0{{ index + 1 }}</p>
+                <h3 class="display-serif mt-3 text-3xl text-[var(--ink)] sm:text-4xl">{{ platform.name }}</h3>
+              </div>
+              <Badge :status="platform.status" />
+            </div>
+            <p class="mt-6 max-w-md text-sm leading-7 text-[var(--muted)]">{{ platform.note }}</p>
+            <div class="mt-auto flex flex-wrap items-end justify-between gap-4 pt-8">
+              <div>
+                <p class="editorial-label text-[var(--faint)]">QQ Group</p>
+                <p class="mt-2 text-2xl font-semibold tracking-[0.08em] text-[var(--ink)]">{{ platform.groupNumber }}</p>
+              </div>
+              <button
+                type="button"
+                class="focus-editorial inline-flex min-h-11 items-center gap-2 border border-[var(--line-strong)] px-4 text-sm font-bold text-[var(--wine)] transition-colors hover:bg-[var(--paper-deep)]"
+                :aria-label="`复制 QQ 群号 ${platform.groupNumber}`"
+                @click="copyNumber(platform.groupNumber)"
+              >
+                <Icon :name="copiedNumber === platform.groupNumber ? 'check' : 'copy'" :size="16" />
+                <span aria-live="polite">{{ copiedNumber === platform.groupNumber ? '已复制' : '复制群号' }}</span>
+              </button>
+            </div>
           </div>
-          <p class="text-sm text-scu-gray dark:text-neutral-400">{{ p.note }}</p>
-          <div class="mt-auto flex items-center gap-2 rounded-xl bg-scu/5 px-4 py-3 dark:bg-scu/10">
-            <span class="text-sm text-scu-gray2 dark:text-neutral-400">QQ 群</span>
-            <span class="text-lg font-semibold tracking-wide text-scu-dark dark:text-white">{{ p.groupNumber }}</span>
-            <button
-              type="button"
-              class="ml-auto inline-flex items-center gap-1 rounded-lg px-2 py-1 text-xs font-medium text-scu-accent transition-colors hover:bg-scu-accent/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-scu-accent dark:text-scu-accent"
-              :aria-label="`复制 QQ 群号 ${p.groupNumber}`"
-              @click="copyNumber(p.groupNumber)"
-            >
-              <Icon :name="copiedNumber === p.groupNumber ? 'check' : 'copy'" :size="14" />
-              <span>{{ copiedNumber === p.groupNumber ? '已复制' : '复制' }}</span>
-            </button>
-          </div>
-        </div>
+        </article>
+
         <a
           v-else
-          :href="p.href"
+          :href="platform.href"
           target="_blank"
           rel="noopener noreferrer"
-          class="flex flex-col gap-4 rounded-2xl border border-black/5 bg-white p-6 shadow-sm transition-shadow hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-scu-accent dark:border-white/10 dark:bg-neutral-900"
+          class="download-ticket editorial-card editorial-card-interactive focus-editorial min-h-72 p-6 sm:p-8"
         >
-          <div class="flex items-center justify-between">
-            <h3 class="text-xl font-semibold text-scu-dark dark:text-white">{{ p.name }}</h3>
-            <Badge :status="p.status" />
+          <div class="relative z-10 flex h-full flex-col">
+            <div class="flex items-start justify-between gap-4 border-b border-dashed border-[var(--line)] pb-6">
+              <div>
+                <p class="editorial-label text-[var(--faint)]">Ticket / 0{{ index + 1 }}</p>
+                <h3 class="display-serif mt-3 text-3xl text-[var(--ink)] sm:text-4xl">{{ platform.name }}</h3>
+              </div>
+              <Badge :status="platform.status" />
+            </div>
+            <p class="mt-6 max-w-md text-sm leading-7 text-[var(--muted)]">{{ platform.note }}</p>
+            <span class="mt-auto inline-flex items-center gap-2 pt-8 text-sm font-bold text-[var(--wine)]">
+              前往 Releases <Icon name="external" :size="16" />
+            </span>
           </div>
-          <p class="text-sm text-scu-gray dark:text-neutral-400">{{ p.note }}</p>
-          <span class="mt-auto inline-flex items-center gap-1 text-sm font-medium text-scu-accent">
-            前往 GitHub Releases
-            <Icon name="external" :size="16" />
-          </span>
         </a>
       </template>
     </div>
-    <p class="mt-8 text-center text-xs text-scu-gray2 dark:text-neutral-500">发布页：{{ SITE.repoName }} · Releases</p>
   </Section>
 </template>
