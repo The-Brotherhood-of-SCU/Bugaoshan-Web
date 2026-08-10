@@ -10,6 +10,8 @@ export const SITE = {
   releases: 'https://github.com/The-Brotherhood-of-SCU/Bugaoshan/releases/latest',
   // 官方 QQ 群号（取自 App 的 EULA：1102483776）。仅展示群号，不跳转。
   groupNumber: '1102483776',
+  // QQ 群二维码内容（一键加群链接）
+  groupUrl: 'https://qm.qq.com/q/aTufDyVwnS',
   contributing:
     'https://github.com/The-Brotherhood-of-SCU/Bugaoshan/blob/main/CONTRIBUTING.md',
   licenseUrl:
