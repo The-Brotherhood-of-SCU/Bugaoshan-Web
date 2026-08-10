@@ -21,7 +21,7 @@ export const downloads: Platform[] = [
   {
     name: '鸿蒙 / iOS',
     status: 'group',
-    note: '暂未公开发布，请加群了解最新进展。',
+    note: '暂未公开发布，请加群了解内测邀测。',
     groupNumber: SITE.groupNumber,
   },
 ]

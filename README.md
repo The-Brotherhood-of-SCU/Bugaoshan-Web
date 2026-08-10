@@ -1,27 +1,27 @@
 # 不高山上 · 官网落地页
 
-> 为开源项目 [Bugaoshan](https://github.com/The-Brotherhood-of-SCU/Bugaoshan) 打造的单页长滚动官网。
+> 为开源项目 [Bugaoshan](https://github.com/The-Brotherhood-of-SCU/Bugaoshan) 打造的 Vue 单页长滚动官网。
 
 ## 技术栈
 
-- [Vite](https://vitejs.dev/) 6 + [React](https://react.dev/) 19 + TypeScript
+- [Vue](https://vuejs.org/) 3.5 + [Vite](https://vite.dev/) 6 + TypeScript 5.6
 - [Tailwind CSS](https://tailwindcss.com/) v4（CSS-first 配置）
 
 ## 本地开发
 
 ```bash
 npm install
-npm run dev     # http://localhost:5173/bugaoshan-web/
+npm run dev     # http://localhost:5173/Bugaoshan-Web/
 npm run build   # 产物输出到 dist/
-npm run preview # http://localhost:4173/bugaoshan-web/
+npm run preview # http://localhost:4173/Bugaoshan-Web/
 ```
 
 ## 部署
 
-推送至 `master` 分支后，[GitHub Actions](.github/workflows/deploy.yml) 会自动构建并部署到 GitHub Pages：
+推送至 `main` 分支后，[GitHub Actions](.github/workflows/deploy.yml) 会自动构建并部署到 GitHub Pages：
 
 ```text
-https://the-brotherhood-of-scu.github.io/bugaoshan-web/
+https://the-brotherhood-of-scu.github.io/Bugaoshan-Web/
 ```
 
 部署前需要在仓库 **Settings → Pages → Source** 中选择 “GitHub Actions”。

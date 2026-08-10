@@ -1,33 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { downloads } from '../data/downloads'
 import { SITE } from '../data/site'
+import { useCopyFeedback } from '../composables/useCopyFeedback'
 import Section from './ui/Section.vue'
 import Badge from './ui/Badge.vue'
 import Icon from './ui/Icon.vue'
 
-const copiedNumber = ref<string | null>(null)
-let resetTimer: ReturnType<typeof setTimeout> | undefined
-
-async function copyNumber(num: string | undefined) {
-  if (!num) return
-  try {
-    await navigator.clipboard.writeText(num)
-  } catch {
-    // 降级方案：非安全上下文（http）下用临时 textarea 复制
-    const ta = document.createElement('textarea')
-    ta.value = num
-    ta.style.position = 'fixed'
-    ta.style.opacity = '0'
-    document.body.appendChild(ta)
-    ta.select()
-    document.execCommand('copy')
-    document.body.removeChild(ta)
-  }
-  copiedNumber.value = num
-  if (resetTimer) clearTimeout(resetTimer)
-  resetTimer = setTimeout(() => (copiedNumber.value = null), 2000)
-}
+const { copiedText: copiedNumber, copyText: copyNumber } = useCopyFeedback()
 </script>
 
 <template>
