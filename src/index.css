@@ -206,15 +206,11 @@ section[id] {
 
 .shot-frame {
   position: relative;
-  border: 1px solid var(--line);
-  background: var(--paper-raised);
-  padding: 0.65rem;
   transition: transform 180ms ease, box-shadow 180ms ease;
 }
 
 .shot-frame:hover {
   z-index: 2;
-  box-shadow: 0 24px 50px -28px var(--shadow);
   transform: translateY(-5px) rotate(0deg);
 }
 
