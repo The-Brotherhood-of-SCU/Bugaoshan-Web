@@ -12,6 +12,12 @@ function open(screenshot: Screenshot) {
   active.value = screenshot
   dialogRef.value?.showModal()
 }
+
+function onDialogClick(event: MouseEvent) {
+  if (event.target === dialogRef.value) {
+    dialogRef.value?.close()
+  }
+}
 </script>
 
 <template>
@@ -40,7 +46,7 @@ function open(screenshot: Screenshot) {
       </button>
     </div>
 
-    <dialog ref="dialogRef" class="m-auto max-h-[92vh] max-w-[92vw] bg-transparent p-0 backdrop:bg-[#171411]/80" @close="active = null">
+    <dialog ref="dialogRef" class="m-auto max-h-[92vh] max-w-[92vw] bg-transparent p-0 backdrop:bg-[#171411]/80" @close="active = null" @click="onDialogClick">
       <div v-if="active" class="relative">
         <img :src="asset(active.src)" :alt="active.alt" class="max-h-[84vh] max-w-[86vw] object-contain drop-shadow-2xl" />
         <button
