@@ -13,7 +13,7 @@ export interface Platform {
 
 export const downloads: Platform[] = [
   {
-    name: 'Android / Windows',
+    name: 'Android / Windows / Linux',
     status: 'released',
     note: '前往 GitHub Releases 获取最新安装包。',
     href: SITE.releases,
