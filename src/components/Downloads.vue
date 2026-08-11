@@ -38,9 +38,14 @@ const buttonText = computed(() => {
     case Platform.Linux:
       return '下载 Linux'
     default:
-      return '下载安装包'
+      return '前往 Releases'
   }
 })
+
+// 苹果等其他平台没有对应安装包,主按钮退化为 Releases 入口,用外链图标
+const buttonIcon = computed(() =>
+  userPlatform.value === Platform.Other ? 'external' : 'download',
+)
 
 // 最新 release,供「更多下载」弹窗展示
 const latestRelease = ref<Release | null>(null)
@@ -85,7 +90,8 @@ function pickDefaultAsset(list: Asset[]): string | null {
         list[0]!
       ).browser_download_url
     default:
-      return list[0]!.browser_download_url
+      // 苹果等其他平台没有对应安装包,返回 null 让主按钮兜底去 Releases
+      return null
   }
 }
 
@@ -211,7 +217,7 @@ onMounted(async () => {
                     class="focus-editorial inline-flex min-h-11 items-center gap-2 border border-(--line-strong) px-4 text-sm font-bold text-(--wine) transition-colors hover:bg-(--paper-deep)"
                     @click="downloadPrimary"
                   >
-                    <Icon name="download" :size="16" /> {{ buttonText }}
+                    <Icon :name="buttonIcon" :size="16" /> {{ buttonText }}
                   </button>
                   <button
                     type="button"
