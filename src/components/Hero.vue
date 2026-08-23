@@ -24,6 +24,9 @@ import Icon from './ui/Icon.vue'
           <Button href="#downloads" variant="primary">
             <Icon name="arrowDown" :size="18" /> 下载应用
           </Button>
+          <Button :href="SITE.docs" variant="secondary" external>
+            <Icon name="book" :size="18" /> 官方文档
+          </Button>
           <Button :href="SITE.repo" variant="secondary" external>
             <Icon name="github" :size="18" /> 浏览源码
           </Button>
