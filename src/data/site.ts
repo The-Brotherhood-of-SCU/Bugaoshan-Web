@@ -6,6 +6,7 @@ export const SITE = {
   license: 'AGPL-3.0',
   org: 'The-Brotherhood-of-SCU',
   repo: 'https://github.com/The-Brotherhood-of-SCU/Bugaoshan',
+  docs: 'https://bugaoshan-docs.scubro.dev/',
   repoName: 'The-Brotherhood-of-SCU/Bugaoshan',
   releases: 'https://github.com/The-Brotherhood-of-SCU/Bugaoshan/releases/latest',
   // 官方 QQ 群号（取自 App 的 EULA：1102483776）。仅展示群号，不跳转。
