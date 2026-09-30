@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
-import { MiniGFM } from '@oblivionocean/minigfm'
+import { marked } from 'marked'
+import DOMPurify from 'dompurify'
 import QRCode from 'qrcode'
 import { downloads } from '../data/downloads'
 import { SITE } from '../data/site'
@@ -60,13 +61,12 @@ const qrOptions = {
   color: { dark: '#211e1b', light: '#f2eee6' },
 } as const
 
-// MiniGFM 默认转义 HTML(防 XSS),GFM 兼容
-const minigfm = new MiniGFM()
-
-// release 说明(body)用 MiniGFM 渲染为 markdown
-const renderedBody = computed(() =>
-  latestRelease.value?.body ? minigfm.parse(latestRelease.value.body) : '',
-)
+// release 说明(body)用 marked 渲染,输出经 DOMPurify 消毒后再 v-html,防止 release 内嵌恶意 HTML
+const renderedBody = computed(() => {
+  const body = latestRelease.value?.body
+  if (!body) return ''
+  return DOMPurify.sanitize(marked.parse(body, { async: false }))
+})
 
 function pickDefaultAsset(list: Asset[]): string | null {
   if (list.length === 0) return null
@@ -295,7 +295,7 @@ onMounted(async () => {
               <h4 class="display-serif text-2xl text-(--ink) sm:text-3xl">{{ latestRelease.tag_name }}</h4>
               <span class="editorial-label text-(--faint)">{{ formatDate(latestRelease.published_at) }}</span>
             </div>
-            <!-- release 说明:MiniGFM 渲染的 markdown -->
+            <!-- release 说明:marked 渲染的 markdown,经 DOMPurify 消毒 -->
             <div v-if="renderedBody" class="markdown-body mt-5 text-sm leading-7 text-(--muted)" v-html="renderedBody" />
           </div>
         </template>

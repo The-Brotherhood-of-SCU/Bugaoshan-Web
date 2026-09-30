@@ -10,7 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@oblivionocean/minigfm": "^1.0.8",
+    "dompurify": "^3.4.16",
+    "marked": "^18.0.14",
     "qrcode": "^1.5.4",
     "vue": "^3.5.13"
   },
