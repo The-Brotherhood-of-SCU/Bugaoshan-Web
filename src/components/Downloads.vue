@@ -102,6 +102,22 @@ function downloadPrimary() {
   window.open(primaryUrl.value ?? SITE.releases, '_blank', 'noopener')
 }
 
+// gh-proxy 镜像:把完整 GitHub 下载链接拼到镜像前缀后即得加速地址
+function toMirrorUrl(url: string) {
+  return SITE.mirrorPrefix + url
+}
+
+// 主按钮的镜像线路:其他平台没有对应安装包时为 null,不展示镜像入口
+const mirrorPrimaryUrl = computed(() =>
+  primaryUrl.value ? toMirrorUrl(primaryUrl.value) : null,
+)
+
+function downloadMirror() {
+  if (mirrorPrimaryUrl.value) {
+    window.open(mirrorPrimaryUrl.value, '_blank', 'noopener')
+  }
+}
+
 function openAllDownloads() {
   dialogRef.value?.showModal()
 }
@@ -220,6 +236,14 @@ onMounted(async () => {
                     <Icon :name="buttonIcon" :size="16" /> {{ buttonText }}
                   </button>
                   <button
+                    v-if="mirrorPrimaryUrl"
+                    type="button"
+                    class="focus-editorial inline-flex min-h-11 items-center gap-2 border border-(--line-strong) px-4 text-sm font-bold text-(--wine) transition-colors hover:bg-(--paper-deep)"
+                    @click="downloadMirror"
+                  >
+                    <Icon name="download" :size="16" /> 镜像下载
+                  </button>
+                  <button
                     type="button"
                     class="focus-editorial inline-flex min-h-11 items-center gap-2 border border-(--line-strong) px-4 text-sm font-bold text-(--wine) transition-colors hover:bg-(--paper-deep)"
                     @click="openAllDownloads"
@@ -272,18 +296,28 @@ onMounted(async () => {
           <div class="mt-6 shrink-0">
             <p class="editorial-label text-(--faint)">Assets / 安装包</p>
             <ul class="mt-3 max-h-80 divide-y divide-(--line) overflow-y-auto border border-(--line)">
-              <li v-for="asset in latestRelease.assets" :key="asset.name">
+              <li v-for="asset in latestRelease.assets" :key="asset.name" class="flex items-stretch">
                 <a
                   :href="asset.browser_download_url"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="focus-editorial flex min-w-0 items-center justify-between gap-4 px-4 py-2.5 transition-colors hover:bg-(--paper-deep)"
+                  class="focus-editorial flex min-w-0 flex-1 items-center justify-between gap-4 px-4 py-2.5 transition-colors hover:bg-(--paper-deep)"
                 >
                   <span class="inline-flex min-w-0 items-center gap-2.5 text-sm font-bold text-(--wine)">
                     <Icon name="download" :size="15" class="shrink-0" />
                     <span class="truncate">{{ asset.name }}</span>
                   </span>
                   <span class="editorial-label shrink-0 tabular-nums text-(--faint)">{{ formatSize(asset.size) }}</span>
+                </a>
+                <a
+                  :href="toMirrorUrl(asset.browser_download_url)"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="经 gh-proxy 镜像加速下载"
+                  :aria-label="`镜像下载 ${asset.name}`"
+                  class="focus-editorial flex shrink-0 items-center gap-1.5 border-l border-(--line) px-3 text-xs font-bold text-(--muted) transition-colors hover:bg-(--paper-deep) hover:text-(--wine)"
+                >
+                  镜像
                 </a>
               </li>
             </ul>

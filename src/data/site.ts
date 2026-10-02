@@ -9,6 +9,8 @@ export const SITE = {
   docs: 'https://bugaoshan-docs.scubro.dev/',
   repoName: 'The-Brotherhood-of-SCU/Bugaoshan',
   releases: 'https://github.com/The-Brotherhood-of-SCU/Bugaoshan/releases/latest',
+  // GitHub 下载加速镜像(gh-proxy)前缀:完整 GitHub 下载链接直接拼在其后
+  mirrorPrefix: 'https://v4.gh-proxy.org/',
   // 官方 QQ 群号（取自 App 的 EULA：1102483776）。仅展示群号，不跳转。
   groupNumber: '1102483776',
   // QQ 群二维码内容（一键加群链接）
