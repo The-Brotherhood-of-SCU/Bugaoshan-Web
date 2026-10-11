@@ -5,10 +5,14 @@ defineProps<{ status: Status }>()
 
 const styles: Record<Status, string> = {
   released: 'border-[var(--wine)] text-[var(--wine)]',
+  beta: 'border-[var(--brick)] text-[var(--brick)]',
+  adapting: 'border-[var(--line-strong)] text-[var(--muted)]',
   group: 'border-[var(--line-strong)] text-[var(--muted)]',
 }
 const labels: Record<Status, string> = {
   released: '已发布',
+  beta: '内测邀测',
+  adapting: '适配中',
   group: '加群了解',
 }
 </script>
